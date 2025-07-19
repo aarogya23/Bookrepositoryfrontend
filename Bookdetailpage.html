@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookWise - Book Details</title>
+    <link href="home.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+        }
+
+        .logo::before {
+            content: '📚';
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #b0b3b8;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .main-container {
+            margin-top: 80px;
+            padding: 40px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .book-info {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .book-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .book-author {
+            color: #b0b3b8;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .book-category {
+            color: #b0b3b8;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .book-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 20px;
+        }
+
+        .rating-text {
+            color: #b0b3b8;
+            font-size: 16px;
+        }
+
+        .book-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            color: #b0b3b8;
+            font-size: 14px;
+        }
+
+        .stat-number {
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .reserve-button {
+            background: linear-gradient(45deg, #EED1AC, #efcda0);
+            color: rgb(0, 0, 0);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(238, 209, 172, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reserve-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(238, 209, 172, 0.4);
+        }
+
+        .book-cover-section {
+            flex: 0 0 300px;
+        }
+
+        .book-cover {
+            width: 280px;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-sections {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .left-content {
+            flex: 1;
+        }
+
+        .right-content {
+            flex: 0 0 300px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b0b3b8;
+            font-size: 18px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .summary-text {
+            color: #e4e6ea;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .similar-books-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .similar-book-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .similar-book-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .similar-book-cover {
+            width: 80px;
+            height: 100px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .similar-book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .similar-book-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .similar-book-author {
+            font-size: 12px;
+            color: #b0b3b8;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 20px;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .book-cover-section {
+                order: -1;
+                flex: none;
+            }
+
+            .book-cover {
+                width: 250px;
+                height: 350px;
+            }
+
+            .book-title {
+                font-size: 32px;
+            }
+
+            .content-sections {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .similar-books-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="goBack()">BookWise</div>
+        <div class="nav-links">
+            <a href="#" onclick="goBack()">Home</a>
+            <a href="#" onclick="showSearchPage()">Search</a>
+        </div>
+        <div class="user-section">
+            <div class="user-avatar">A</div>
+            <span>Adrian</span>
+        </div>
+    </nav>
+
+        <div class="search-page" id="searchPage">
+        <button class="back-button" onclick="showHomePage()">← Back to Home</button>
+        
+        <div class="search-header">
+            <div class="search-subtitle">DISCOVER YOUR NEXT GREAT READ!</div>
+            <h1 class="search-title">Explore and Search for<br>Any Book In Our Library</h1>
+            
+            <div class="search-container">
+                <div class="search-icon">🔍</div>
+                <input type="text" class="search-input" placeholder="Thriller Mystery!" id="searchInput">
+            </div>
+        </div>
+
+        <div id="searchResults">
+            <div class="search-results-header">
+                <div>
+                    <h2 class="search-results-title">Search Results</h2>
+                    <div class="search-results-count" id="resultsCount">Showing all available books</div>
+                </div>
+                <div class="filter-section">
+                    <span class="filter-label">Filter by:</span>
+                    <select class="filter-select" id="filterSelect">
+                        <option value="recommended">Recommended</option>
+                        <option value="newest">Newest</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="author">By Author</option>
+                        <option value="genre">By Genre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="search-results-grid" id="booksGrid">
+                <!-- Books will be populated here by JavaScript -->
+            </div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                <div class="no-results-icon">❌</div>
+                <h3>No Results Found</h3>
+                <p>We couldn't find any books matching your search. Try using different keywords or check your spelling.</p>
+                <button class="clear-search-btn" onclick="clearSearch()">Clear Search</button>
+            </div>
+
+            <div class="pagination" id="pagination">
+                <button class="pagination-btn" onclick="previousPage()">‹</button>
+                <button class="pagination-btn active" onclick="goToPage(1)">1</button>
+                <button class="pagination-btn" onclick="goToPage(2)">2</button>
+                <button class="pagination-btn" onclick="goToPage(3)">3</button>
+                <button class="pagination-btn" onclick="goToPage(4)">4</button>
+                <button class="pagination-btn" onclick="goToPage(5)">5</button>
+                <button class="pagination-btn" onclick="nextPage()">›</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <button class="back-button" onclick="goBack()">← Back</button>
+
+        <div class="book-detail-header">
+            <div class="book-info">
+                <h1 class="book-title" id="bookTitle">Origin</h1>
+                <div class="book-author">By <span id="bookAuthor">Dan Brown</span></div>
+                <div class="book-category">Category: <span id="bookCategory">Thriller / Suspense</span></div>
+                
+                <div class="book-rating">
+                    <span class="stars" id="bookStars">★★★★☆</span>
+                    <span class="rating-text" id="bookRating">4.5/5</span>
+                </div>
+
+                <div class="book-stats">
+                    <div class="stat-item">
+                        Total books: <span class="stat-number" id="totalBooks">100</span>
+                    </div>
+                    <div class="stat-item">
+                        Available books: <span class="stat-number" id="availableBooks">42</span>
+                    </div>
+                </div>
+
+                <button class="reserve-button" onclick="reserveBook()">
+                    📖 RESERVE BOOK QUICKLY
+                </button>
+            </div>
+
+            <div class="book-cover-section">
+                <div class="book-cover">
+                    <img id="bookCoverImg" src="danbrown.png" alt="Book Cover" />
+                </div>
+            </div>
+        </div>
+
+        <div class="content-sections">
+            <div class="left-content">
+                <div class="section">
+                    <h2 class="section-title">Video</h2>
+                    <div class="video-placeholder">
+                        📹 Video Preview Coming Soon
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Summary</h2>
+                    <div class="summary-text" id="bookSummary">
+                        Origin is a 2017 mystery thriller novel by American author Dan Brown. It is the fifth installment in the Robert Langdon series, following previous books about the Harvard symbologist. The novel is set in Spain and follows Langdon as he investigates a discovery that could change the future of science and religion.
+                        
+                        <br><br>People in Glass Houses by Jayne Castle is a futuristic tale for Jayne Ann Krentz fans, a sequel to After Dark. Elinor Merritt is reunited with psychic abilities but in harmony with advanced technology. The story follows the main characters, Emmett and Elinor as they drawn together under unusual circumstances.
+                        
+                        <br><br>Emmett, a disgraced psychic, works for a corporation that offers psychic services to a futuristic society. When she finds herself trapped in a dangerous situation involving a mysterious conspiracy, she seeks the help of Sam, a former investigator with a dark past. As they uncover the secrets surrounding a glass house, a mysterious structure that conceals both past and present dangers, Emmett must navigate the growing attraction while hiding hidden dangers.
+                        
+                        <br><br>The novel combines elements of mystery, suspense, and romance, with a focus on psychic abilities, futuristic technology, and the connections that bind people together. Glass Houses explores themes of trust, betrayal, and love with the futuristic setting providing a unique backdrop for the story.
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-content">
+                <div class="section">
+                    <h2 class="section-title">More similar books</h2>
+                    <div class="similar-books-grid" id="similarBooksGrid">
+                        <!-- Similar books will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample book data
+        const booksData = {
+            "Origin": {
+                title: "Origin",
+                author: "Dan Brown",
+                category: "Thriller / Suspense",
+                stars: "★★★★☆",
+                rating: "4.5/5",
+                totalBooks: 100,
+                availableBooks: 42,
+                coverUrl: "danbrown.png",
+                summary: `Origin is a 2017 mystery thriller novel by American author Dan Brown. It is the fifth installment in the Robert Langdon series, following previous books about the Harvard symbologist. The novel is set in Spain and follows Langdon as he investigates a discovery that could change the future of science and religion.
+                
+                The story begins when Langdon attends a presentation by his former student, Edmond Kirsch, a tech billionaire who claims to have made a discovery that will change the world. However, the presentation is interrupted by violence, and Langdon finds himself on the run with Ambra Vidal, the future Queen of Spain.
+                
+                As they navigate through Spain's historic locations, they uncover secrets about human origin and destiny. The novel weaves together art, science, and religion in Brown's signature style, exploring questions about where we came from and where we're going.`
+            },
+            "The Fury": {
+                title: "The Fury",
+                author: "Alex Michaelides",
+                category: "Psychological Thriller",
+                stars: "★★★★☆",
+                rating: "4.3/5",
+                totalBooks: 75,
+                availableBooks: 23,
+                coverUrl: "2.png",
+                summary: `The Fury is a psychological thriller that explores themes of friendship, betrayal, and revenge. Set on a private Greek island, the story follows a group of friends whose vacation turns deadly when secrets from their past surface.
+                
+                The narrative unfolds through multiple perspectives, revealing the complex relationships between the characters and the dark secrets they've been hiding. As tensions escalate, the idyllic setting becomes a trap where old grudges and new revelations collide.
+                
+                Michaelides masterfully crafts a story that keeps readers guessing until the final pages, with twists that redefine everything you thought you knew about the characters.`
+            },
+            "The Madness": {
+                title: "The Madness",
+                author: "Alex Michaelides",
+                category: "Psychological Thriller",
+                stars: "★★★★☆",
+                rating: "4.1/5",
+                totalBooks: 60,
+                availableBooks: 18,
+                coverUrl: "3.png",
+                summary: `The Madness delves into the troubled mind of a therapist who becomes obsessed with understanding the psychology of his patients. The story blurs the lines between sanity and madness as the protagonist's own mental state begins to deteriorate.
+                
+                Set in a psychiatric facility, the novel explores themes of mental illness, professional ethics, and the thin line between helping and harming. As the therapist becomes increasingly involved in his patients' lives, he loses sight of his own reality.
+                
+                This gripping psychological thriller challenges readers to question what they believe about mental health and the nature of reality itself.`
+            },
+            "Gerald's Game": {
+                title: "Gerald's Game",
+                author: "Stephen King",
+                category: "Horror Genre",
+                stars: "★★★★☆",
+                rating: "4.2/5",
+                totalBooks: 85,
+                availableBooks: 31,
+                coverUrl: "4.png",
+                summary: `Gerald's Game is a psychological horror novel that traps readers in a nightmarish scenario. Jessie Burlingame finds herself handcuffed to a bed in a remote lake house after her husband Gerald dies during an intimate game gone wrong.
+                
+                Alone and trapped, Jessie must confront her deepest fears and traumatic memories while fighting for survival. The novel is a masterclass in psychological tension, exploring themes of domestic abuse, trauma, and the strength of the human spirit.
+                
+                King transforms a simple premise into a harrowing exploration of one woman's fight for survival against both physical and psychological threats.`
+            },
+            "Don't Turn Around": {
+                title: "Don't Turn Around",
+                author: "Jo Spain",
+                category: "Thriller / Suspense",
+                stars: "★★★★☆",
+                rating: "4.4/5",
+                totalBooks: 45,
+                availableBooks: 15,
+                coverUrl: "5.png",
+                summary: `Don't Turn Around is a gripping thriller that follows Detective Inspector Tom Reynolds as he investigates a series of murders that seem to be connected by a common thread - the victims all received a warning message before their deaths.
+                
+                The investigation takes Reynolds through the dark underbelly of society, where he uncovers a web of corruption and revenge that goes deeper than he ever imagined. As the body count rises, Reynolds realizes that he might be the next target.
+                
+                Spain weaves a complex narrative that keeps readers on the edge of their seats, with well-developed characters and a plot that delivers surprises until the very end.`
+            },
+            "The Silent Patient": {
+                title: "The Silent Patient",
+                author: "Alex Michaelides",
+                category: "Psychological Thriller",
+                stars: "★★★★★",
+                rating: "4.7/5",
+                totalBooks: 120,
+                availableBooks: 38,
+                coverUrl: "6.png",
+                summary: `The Silent Patient is a psychological thriller about a woman named Alicia Berenson who refuses to speak after allegedly murdering her husband. She is confined to a secure psychiatric facility where psychotherapist Theo Faber becomes obsessed with treating her.
+                
+                Determined to understand Alicia's motive for the murder, Theo begins his own investigation, uncovering secrets about Alicia's past and her marriage. As he delves deeper into her world, he discovers that the truth is far more complex than he imagined.
+                
+                This debut novel became an international bestseller, praised for its shocking twist ending and masterful storytelling that keeps readers guessing until the final page.`
+            }
+        };
+
+        const similarBooksData = [
+            { title: "The Madness", author: "Alex Michaelides", coverUrl: "3.png" },
+            { title: "Gerald's Game", author: "Stephen King", coverUrl: "4.png" },
+            { title: "Don't Turn Around", author: "Jo Spain", coverUrl: "5.png" },
+            { title: "The Silent Patient", author: "Alex Michaelides", coverUrl: "6.png" },
+            { title: "The Fury", author: "Alex Michaelides", coverUrl: "2.png" },
+            { title: "Origin", author: "Dan Brown", coverUrl: "danbrown.png" }
+        ];
+
+        function loadBookDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookTitle = urlParams.get('book') || 'Origin';
+            
+            const book = booksData[bookTitle];
+            if (book) {
+                document.getElementById('bookTitle').textContent = book.title;
+                document.getElementById('bookAuthor').textContent = book.author;
+                document.getElementById('bookCategory').textContent = book.category;
+                document.getElementById('bookStars').textContent = book.stars;
+                document.getElementById('bookRating').textContent = book.rating;
+                document.getElementById('totalBooks').textContent = book.totalBooks;
+                document.getElementById('availableBooks').textContent = book.availableBooks;
+                document.getElementById('bookCoverImg').src = book.coverUrl;
+                document.getElementById('bookSummary').innerHTML = book.summary;
+                document.title = `BookWise - ${book.title}`;
+            }
+            
+            loadSimilarBooks(bookTitle);
+        }
+
+        function loadSimilarBooks(currentBook) {
+            const grid = document.getElementById('similarBooksGrid');
+            grid.innerHTML = '';
+            
+            const filteredBooks = similarBooksData.filter(book => book.title !== currentBook).slice(0, 6);
+            
+            filteredBooks.forEach(book => {
+                const card = document.createElement('div');
+                card.className = 'similar-book-card';
+                card.onclick = () => openBookDetail(book.title);
+                
+                card.innerHTML = `
+                    <div class="similar-book-cover">
+                        <img src="${book.coverUrl}" alt="${book.title}" onerror="this.src='https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=80&h=100&fit=crop'" />
+                    </div>
+                    <div class="similar-book-title">${book.title}</div>
+                    <div class="similar-book-author">${book.author}</div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function openBookDetail(bookTitle) {
+            window.location.href = `?book=${encodeURIComponent(bookTitle)}`;
+        }
+
+        function reserveBook() {
+            const bookTitle = document.getElementById('bookTitle').textContent;
+            if (confirm(`Reserve "${bookTitle}"?\n\nThis book will be held for you for 3 days.`)) {
+                alert(`Book reserved successfully!\n\nReservation ID: #${Math.floor(Math.random() * 90000) + 10000}\nPickup by: ${new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString()}\nLocation: Main Library, Floor 2`);
+                
+                const button = document.querySelector('.reserve-button');
+                button.innerHTML = '✓ RESERVED';
+                button.style.background = 'linear-gradient(45deg, #28a745, #20c997)';
+                button.disabled = true;
+            }
+        }
+
+        function goBack() {
+            if (document.referrer && document.referrer.includes(window.location.origin)) {
+                window.history.back();
+            } else {
+                window.location.href = 'Home.html';
+            }
+        }
+
+        function showSearchPage() {
+            window.location.href = 'index.html#search';
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBookDetails();
+        });
+    </script>
+    <script src="seaarchandmodular.js"></script>
+</body>
+</html>

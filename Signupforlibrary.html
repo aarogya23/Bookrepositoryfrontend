@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookWise - Create Your Library Account</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            background: #1a1a2e;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 110vh;
+        }
+
+        .left-panel {
+            width: 45%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+
+        .logo::after {
+            
+            font-size: 24px;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .form-container {
+            z-index: 2;
+            position: relative;
+        }
+
+        .form-title {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            color: #b0b3b8;
+            font-size: 14px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #e4e6ea;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-input::placeholder {
+            color: #b0b3b8;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #b0b3b8;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #007bff;
+        }
+
+        .file-upload-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .file-upload-label {
+            display: block;
+            color: #e4e6ea;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .file-upload-input {
+            display: none;
+        }
+
+        .file-upload-button {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #b0b3b8;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .file-upload-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #007bff;
+        }
+
+        .upload-icon {
+            font-size: 16px;
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 16px;
+            background-color: #E7C9A5;
+            border: none;
+            border-radius: 8px;
+            color: rgb(12, 12, 12);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+           
+        }
+
+        .signup-button:hover {
+            transform: translateY(-2px);
+            
+        }
+
+        .signup-button:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #E7C9A5;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #f5d4ad;
+        }
+
+        .right-panel {
+            margin-left: 50px;
+            width: 55%;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .right-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 123, 255, 0.1), rgba(0, 86, 179, 0.2));
+            animation: shimmer 8s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .floating-book {
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            border-radius: 4px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.8;
+        }
+
+        .floating-book:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-book:nth-child(2) {
+            top: 60%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+
+        .floating-book:nth-child(3) {
+            bottom: 30%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .left-panel,
+            .right-panel {
+                width: 100%;
+            }
+            
+            .right-panel {
+                height: 200px;
+            }
+            
+            .left-panel {
+                padding: 20px;
+            }
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="logo-section">
+                <div class="logo"></div>
+                <div class="logo-text">BookWise</div>
+            </div>
+            
+            <div class="form-container">
+                <h1 class="form-title">Create Your Library Account</h1>
+                <p class="form-subtitle">Please complete all fields and upload a valid university ID to gain access to the library system.</p>
+                
+                <div class="success-message" id="successMessage">
+                    Account created successfully! Welcome to BookWise Library.
+                </div>
+                
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="fullName">Full name</label>
+                        <input type="text" id="fullName" class="form-input" placeholder="Adnan Maqsood" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-input" placeholder="adnan@university.edu" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="universityId">University ID Number</label>
+                        <input type="text" id="universityId" class="form-input" placeholder="UNI-20240001" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-container">
+                            <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword()">👁️</button>
+                        </div>
+                    </div>
+                    
+                    <div class="file-upload-container">
+                        <label for="idUpload" class="file-upload-label">Upload University ID Card (Not selected)</label>
+                        <input type="file" id="idUpload" class="file-upload-input" accept=".jpg,.jpeg,.png,.pdf" required>
+                        <label for="idUpload" class="file-upload-button">
+                            <span id="fileName">Select a file</span>
+                            <span class="upload-icon">📁</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="signup-button">Sign Up</button>
+                </form>
+                
+                <div class="login-link">
+                    <span style="color: #b0b3b8;">Have an account already? </span><a href="#" onclick="showLoginMessage()">Login</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-panel">
+            <div class="floating-elements">
+                <img src="book.png">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.querySelector('.password-toggle');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.textContent = '👁️';
+            }
+        }
+
+        // File upload handler
+        document.getElementById('idUpload').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name || 'Select a file';
+            document.getElementById('fileName').textContent = fileName;
+            
+            if (e.target.files[0]) {
+                document.querySelector('.file-upload-label').textContent = 'Upload University ID Card (Selected)';
+                document.querySelector('.file-upload-button').style.borderColor = '#28a745';
+                document.querySelector('.file-upload-button').style.color = '#28a745';
+            }
+        });
+
+        // Form submission handler
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const universityId = document.getElementById('universityId').value;
+            const password = document.getElementById('password').value;
+            const idUpload = document.getElementById('idUpload').files[0];
+            
+            // Simple validation
+            if (!fullName || !email || !universityId || !password || !idUpload) {
+                alert('Please fill in all fields and upload your university ID.');
+                return;
+            }
+            
+            // Email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Password validation
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long.');
+                return;
+            }
+            
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Reset form after a delay
+            setTimeout(() => {
+                document.getElementById('registrationForm').reset();
+                document.getElementById('fileName').textContent = 'Select a file';
+                document.querySelector('.file-upload-label').textContent = 'Upload University ID Card (Not selected)';
+                document.querySelector('.file-upload-button').style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                document.querySelector('.file-upload-button').style.color = '#b0b3b8';
+                document.getElementById('successMessage').style.display = 'none';
+            }, 3000);
+        });
+
+        function showLoginMessage() {
+            alert('Redirecting to login page...');
+        }
+
+        // Add some interactive effects
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

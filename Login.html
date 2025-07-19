@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BookWise - Login</title>
+  <style>
+    /* Reuse base styles from your registration page */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      background: #1a1a2e;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .left-panel {
+      width: 45%;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 123, 255, 0.1) 0%, transparent 70%);
+      animation: pulse 6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      margin-right: 12px;
+    }
+
+    .logo-text {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .form-container {
+      z-index: 2;
+      position: relative;
+    }
+
+    .form-title {
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .form-subtitle {
+      color: #b0b3b8;
+      font-size: 14px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #e4e6ea;
+      font-size: 14px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .input-container {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: white;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .form-input::placeholder {
+      color: #b0b3b8;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #b0b3b8;
+      cursor: pointer;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .password-toggle:hover {
+      color: #007bff;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 16px;
+      background-color: #E7C9A5;
+      border: none;
+      border-radius: 8px;
+      color: rgb(12, 12, 12);
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .login-button:active {
+      transform: translateY(0);
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .register-link a {
+      color: #E7C9A5;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .register-link a:hover {
+      color: #f5d4ad;
+    }
+
+    .right-panel {
+      margin-left: 50px;
+      width: 55%;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .right-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(0, 123, 255, 0.1), rgba(0, 86, 179, 0.2));
+      animation: shimmer 8s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left-panel,
+      .right-panel {
+        width: 100%;
+      }
+
+      .right-panel {
+        height: 200px;
+      }
+
+      .left-panel {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="logo-section">
+        <div class="logo"></div>
+        <div class="logo-text">BookWise</div>
+      </div>
+
+      <div class="form-container">
+        <h1 class="form-title">Welcome Back</h1>
+        <p class="form-subtitle">Please login using your email and password to continue accessing the BookWise Library system.</p>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-input" placeholder="adnan@university.edu" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-container" style="background-color:rgba(255, 255, 255, 0.15);">
+              <input type="password" id="password" class="form-input" placeholder="Enter your password" required />
+              <button type="button" class="password-toggle" onclick="togglePassword()">👁️</button>
+            </div>
+          </div>
+
+          <button type="submit" class="login-button">Login</button>
+        </form>
+
+        <div class="register-link">
+          <span style="color: #b0b3b8;">Don’t have an account? </span><a href="register.html">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <img src="book.png">
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const toggleButton = document.querySelector('.password-toggle');
+
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleButton.textContent = '🙈';
+      } else {
+        passwordInput.type = 'password';
+        toggleButton.textContent = '👁️';
+      }
+    }
+
+    // Login form handler
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) {
+        alert('Please enter both email and password.');
+        return;
+      }
+
+      const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+      if (!emailPattern.test(email)) {
+        alert('Invalid email format.');
+        return;
+      }
+
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters long.');
+        return;
+      }
+
+      // Simulated login success
+      alert('Login successful! Redirecting...');
+    });
+  </script>
+</body>
+</html>

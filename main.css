@@ -1,0 +1,242 @@
+ /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 40px;
+            padding: 40px 0;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: fit-content;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        .profile-stats {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: #8b5cf6;
+        }
+
+        .membership-card {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .membership-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .membership-level {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .membership-id {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .qr-code {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 10px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: black;
+            font-weight: bold;
+        }
+
+        /* Books Section */
+        .books-section h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .book-card:hover::before {
+            left: 100%;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .book-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .book-cover {
+            width: 60px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .book-author {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .due-date {
+            color: #ef4444;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .profile-section {
+                order: 2;
+            }
+        }
+
+                    @media (max-width: 1024px) {
+                .profile-page.active {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+                
+                .profile-section {
+                    order: 2;
+                }
+            }
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav {
+                gap: 20px;
+            }
+            
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+        
